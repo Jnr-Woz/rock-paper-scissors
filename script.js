@@ -9,8 +9,10 @@ function getComputerChoice() {
 // storing the choice selected by the computer
 const computerSelection = getComputerChoice();
 
+// playerSelection
+let playerSelection;
 
-// playRound handles the gameplay and announces winners/losers
+// playRound handles a round of gameplay and returns its result
 function playRound (playerSelection, computerSelection) {
     computerSelection = computerSelection.toLowerCase();
     playerSelection = playerSelection.toLowerCase();
@@ -35,12 +37,36 @@ function playRound (playerSelection, computerSelection) {
     // paper beats rock
     } else if (playerSelection === "paper" && computerSelection === "rock") {
         return "You win! Paper beats Rock.";
-    } else {
+    } else if (playerSelection === "rock" && computerSelection === "paper") {
         return "You lose! Paper beats Rock.";
+    
+    // if input was note a game choice
+    } else {
+        return "Your input was not a game choice!"
     }
 }
 
-// testing...
-const playerSelection = "rock";
-console.log(computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+// game() enables five rounds of the game 
+function game () {
+    // loop through 0-4 to play the game 5x
+    for (i = 0; i < 5; i++) {
+        if (i === 4){
+            do {
+                playerSelection = prompt("This is the final round, the ultimate battle. What totem do you choose?");
+            } while (!playerSelection);
+
+            let result = playRound(playerSelection, computerSelection);
+            console.log(result);
+        } else {
+            do{
+                playerSelection = prompt(`Choose a totem.`);
+            } while (!playerSelection);
+
+            let result = playRound(playerSelection, computerSelection);
+            console.log(result);
+        }
+    }
+}
+
+// calling game!
+game();
